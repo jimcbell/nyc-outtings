@@ -242,7 +242,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
           {/* Submit Button */}
           <button type="submit" className="cta-button">
             <MagnifyingGlassIcon className="w-6 h-6" />
-            Find Date Ideas
+            Find Ideas
           </button>
         </form>
       </div>

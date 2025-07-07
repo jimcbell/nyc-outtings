@@ -18,6 +18,8 @@ function App() {
   const [preferences, setPreferences] = useState<DatePreferences | null>(null)
   const [filteredIdeas, setFilteredIdeas] = useState(dateIdeas)
 
+  const googleAds : boolean = (import.meta as any).env.VITE_GOOGLE_ADS_ENABLED === 'true';
+
   const handleFormSubmit = (data: DatePreferences) => {
     setPreferences(data)
     
@@ -99,9 +101,11 @@ function App() {
       </header>
 
       {/* Header Banner Ad */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <Ad slot="header-banner" format="horizontal" className="w-full" />
-      </div>
+      {googleAds && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <Ad slot="header-banner" format="horizontal" className="w-full" />
+        </div>
+      )}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {!showResults ? (
@@ -133,9 +137,11 @@ function App() {
       </main>
 
       {/* Footer Banner Ad */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <Ad slot="footer-banner" format="horizontal" className="w-full" />
-      </div>
+      {googleAds && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <Ad slot="footer-banner" format="horizontal" className="w-full" />
+        </div>
+      )}
 
       <footer className="bg-white border-t border-gray-200 mt-12">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">

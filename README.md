@@ -2,8 +2,6 @@
 
 A web application that helps you find the perfect event in New York City based on your preferences.
 
-Deployed to [Azure Static Web Apps](https://wonderful-plant-0e3de160f.6.azurestaticapps.net/)
-*Disclaimer* Still need to fix google ads implementation, that is why there are blank boxes
 
 ## Features
 
@@ -38,8 +36,8 @@ Deployed to [Azure Static Web Apps](https://wonderful-plant-0e3de160f.6.azuresta
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/nyc-date-night.git
-cd nyc-date-night
+git clone https://github.com/jimcbell/nyc-outtings.git
+cd nyc-outtings
 ```
 
 2. Install dependencies:

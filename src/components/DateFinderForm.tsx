@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { DatePreferences } from '../App'
-import { MapPinIcon, SunIcon, MoonIcon, ClockIcon, BeakerIcon, PaintBrushIcon, UserGroupIcon, UserIcon, MagnifyingGlassIcon, TvIcon } from '@heroicons/react/24/outline'
+import OptionGrid from './OptionGrid'
 import '../styles/custom.css'
 
 interface FormErrors {
@@ -15,6 +15,7 @@ interface DateFinderFormProps {
 }
 
 export default function DateFinderForm({ onSubmit, initialPreferences }: DateFinderFormProps) {
+  // State for the selection of preferences
   const [formData, setFormData] = useState<DatePreferences>({
     neighborhoods: initialPreferences?.neighborhoods || [],
     timeOfDay: initialPreferences?.timeOfDay || [],
@@ -22,6 +23,8 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     accessibility: initialPreferences?.accessibility || false,
     dietaryRestrictions: initialPreferences?.dietaryRestrictions || []
   })
+
+  // State for form errors
   const [errors, setErrors] = useState<FormErrors>({})
 
   // Update form data when initialPreferences changes
@@ -35,30 +38,24 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
-  const handleNeighborhoodChange = (neighborhood: string, checked: boolean) => {
+  const handleNeighborhoodChange = (neighborhoods: string[]) => {
     setFormData(prev => ({
       ...prev,
-      neighborhoods: checked 
-        ? [...prev.neighborhoods, neighborhood]
-        : prev.neighborhoods.filter(n => n !== neighborhood)
+      neighborhoods
     }))
   }
 
-  const handleTimeOfDayChange = (time: string, checked: boolean) => {
+  const handleTimeOfDayChange = (timeOfDay: string[]) => {
     setFormData(prev => ({
       ...prev,
-      timeOfDay: checked
-        ? [...prev.timeOfDay, time]
-        : prev.timeOfDay.filter(t => t !== time)
+      timeOfDay
     }))
   }
 
-  const handleActivityChange = (activity: string, checked: boolean) => {
+  const handleActivityChange = (activities: string[]) => {
     setFormData(prev => ({
       ...prev,
-      activities: checked
-        ? [...prev.activities, activity]
-        : prev.activities.filter(a => a !== activity)
+      activities
     }))
   }
 
@@ -81,6 +78,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     return Object.keys(newErrors).length === 0
   }
 
+  // Handles submitting the form
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (validateForm()) {
@@ -88,164 +86,84 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     }
   }
 
+  // Data for the option grids
+  const neighborhoodOptions = [
+    { value: 'manhattan', label: 'Manhattan', icon: '🏙️' },
+    { value: 'brooklyn', label: 'Brooklyn', icon: '🌉' },
+    { value: 'queens', label: 'Queens', icon: '🏘️' },
+    { value: 'bronx', label: 'Bronx', icon: '🌳' },
+    { value: 'staten-island', label: 'Staten Island', icon: '🚢' }
+  ]
+
+  const timeOfDayOptions = [
+    { value: 'morning', label: 'Morning', icon: '🌅' },
+    { value: 'afternoon', label: 'Afternoon', icon: '☀️' },
+    { value: 'evening', label: 'Evening', icon: '🌆' },
+    { value: 'night', label: 'Night', icon: '🌟' }
+  ]
+
+  const activityOptions = [
+    { value: 'food', label: 'Food & Drink', icon: '🍽️' },
+    { value: 'culture', label: 'Arts & Culture', icon: '🎨' },
+    { value: 'outdoor', label: 'Outdoor & Sports', icon: '🏃' },
+    { value: 'entertainment', label: 'Entertainment', icon: '🎭' }
+  ]
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header with wave pattern */}
-      <div className="header-wave">
-        <div className="container mx-auto px-4 py-12">
-          <h1 className="text-4xl font-bold text-white text-center mb-2">Find Your Perfect Event</h1>
-          <p className="text-white text-center text-lg">Discover NYC's best experiences tailored to your preferences</p>
+    <div className="form-container">
+      <h2 className="form-title">Find Your Perfect Experience</h2>
+      <p className="form-subtitle">Customize your search to discover NYC adventures tailored just for you</p>
+
+      <OptionGrid
+        title="Neighborhoods"
+        options={neighborhoodOptions}
+        isMultiSelect={false}
+        selectedValues={formData.neighborhoods}
+        onSelectionChange={handleNeighborhoodChange}
+      />
+
+      <OptionGrid
+        title="Time of Day"
+        options={timeOfDayOptions}
+        isMultiSelect={false}
+        selectedValues={formData.timeOfDay}
+        onSelectionChange={handleTimeOfDayChange}
+      />
+
+      <OptionGrid
+        title="Activities"
+        options={activityOptions}
+        isMultiSelect={true}
+        selectedValues={formData.activities}
+        onSelectionChange={handleActivityChange}
+      />
+
+      <div className="form-section">
+        <div className="section-title">
+          <svg className="section-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          Accessibility
+        </div>
+        <div className="accessibility-section">
+          <div className="accessibility-option" data-option="wheelchair">
+            <div className="checkbox"></div>
+            <div>♿ Wheelchair Accessible</div>
+          </div>
+          <div className="accessibility-option" data-option="hearing">
+            <div className="checkbox"></div>
+            <div>🎧 Hearing Assistance Available</div>
+          </div>
+          <div className="accessibility-option" data-option="visual">
+            <div className="checkbox"></div>
+            <div>👁️ Visual Assistance Available</div>
+          </div>
         </div>
       </div>
 
-      {/* Decorative circles */}
-      <div className="decorative-circles">
-        <div className="decorative-circle circle-1"></div>
-        <div className="decorative-circle circle-2"></div>
-        <div className="decorative-circle circle-3"></div>
-      </div>
-
-      {/* Main form card */}
-      <div className="container mx-auto px-4">
-        <form onSubmit={handleSubmit} className="form-card">
-          {/* Neighborhoods Section */}
-          <div className="mb-8">
-            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-              <MapPinIcon className="w-5 h-5 mr-2 text-teal-500" />
-              Neighborhoods
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'].map((neighborhood) => (
-                <label key={neighborhood} className={`option-button ${
-                  formData.neighborhoods.includes(neighborhood)
-                    ? 'option-button--selected'
-                    : 'option-button--unselected'
-                }`}>
-                  <input
-                    type="checkbox"
-                    checked={formData.neighborhoods.includes(neighborhood)}
-                    onChange={(e) => handleNeighborhoodChange(neighborhood, e.target.checked)}
-                    className="sr-only"
-                  />
-                  <MapPinIcon className="w-5 h-5 mr-2 flex-shrink-0" />
-                  {neighborhood}
-                </label>
-              ))}
-            </div>
-            {errors.neighborhoods && <p className="mt-2 text-sm text-red-600">{errors.neighborhoods}</p>}
-          </div>
-
-          {/* Time of Day Section */}
-          <div className="mb-8">
-            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-              <ClockIcon className="w-5 h-5 mr-2 text-teal-500" />
-              Time of Day
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                { label: 'Daytime', icon: SunIcon },
-                { label: 'Nighttime', icon: MoonIcon },
-                { label: 'Any', icon: ClockIcon }
-              ].map(({ label, icon: Icon }) => (
-                <label key={label} className={`option-button ${
-                  formData.timeOfDay.includes(label)
-                    ? 'option-button--selected'
-                    : 'option-button--unselected'
-                }`}>
-                  <input
-                    type="checkbox"
-                    checked={formData.timeOfDay.includes(label)}
-                    onChange={(e) => handleTimeOfDayChange(label, e.target.checked)}
-                    className="sr-only"
-                  />
-                  <Icon className="option-icon" />
-                  <span>{label}</span>
-                </label>
-              ))}
-            </div>
-            {errors.timeOfDay && <p className="mt-2 text-sm text-red-600">{errors.timeOfDay}</p>}
-          </div>
-
-          {/* Activities Section */}
-          <div className="mb-8">
-            <div className="flex items-center space-x-2 mb-4">
-              <TvIcon className="w-5 h-5 text-teal-500" />
-              <h2 className="text-lg font-medium">Activities</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button
-                type="button"
-                className={`option-button ${
-                  formData.activities.includes('Food & Drink') ? 'option-button--selected' : 'option-button--unselected'
-                }`}
-                onClick={() => handleActivityChange('Food & Drink', true)}
-              >
-                <BeakerIcon className="option-icon" />
-                Food & Drink
-              </button>
-              <button
-                type="button"
-                className={`option-button ${
-                  formData.activities.includes('Arts & Culture') ? 'option-button--selected' : 'option-button--unselected'
-                }`}
-                onClick={() => handleActivityChange('Arts & Culture', true)}
-              >
-                <PaintBrushIcon className="option-icon" />
-                Arts & Culture
-              </button>
-              <button
-                type="button"
-                className={`option-button ${
-                  formData.activities.includes('Outdoor & Sports') ? 'option-button--selected' : 'option-button--unselected'
-                }`}
-                onClick={() => handleActivityChange('Outdoor & Sports', true)}
-              >
-                <UserGroupIcon className="option-icon" />
-                Outdoor & Sports
-              </button>
-              <button
-                type="button"
-                className={`option-button ${
-                  formData.activities.includes('Entertainment') ? 'option-button--selected' : 'option-button--unselected'
-                }`}
-                onClick={() => handleActivityChange('Entertainment', true)}
-              >
-                <TvIcon className="option-icon" />
-                Entertainment
-              </button>
-            </div>
-          </div>
-          {errors.activities && <p className="mt-2 text-sm text-red-600">{errors.activities}</p>}
-
-          {/* Accessibility Section */}
-          <div className="mb-8">
-            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-              <UserIcon className="w-5 h-5 mr-2 text-teal-500" />
-              Accessibility
-            </h3>
-            <label className={`option-button ${
-              formData.accessibility
-                ? 'option-button--selected'
-                : 'option-button--unselected'
-            }`}>
-              <input
-                type="checkbox"
-                checked={formData.accessibility}
-                onChange={(e) => handleChange('accessibility', e.target.checked)}
-                className="sr-only"
-              />
-              <UserIcon className="option-icon" />
-              <span>Wheelchair Accessible</span>
-            </label>
-          </div>
-
-          {/* Submit Button */}
-          <button type="submit" className="cta-button">
-            <MagnifyingGlassIcon className="w-6 h-6" />
-            Find Ideas
-          </button>
-        </form>
-      </div>
+      <button className="search-button pulse" onClick={handleSubmit}>
+        <span>✨ Find Amazing Experiences</span>
+      </button>
     </div>
   )
 } 

@@ -71,77 +71,137 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">NYC Outtings Finder</h1>
-              <p className="mt-1 text-sm text-gray-500">
-                Discover the perfect event in New York City
-              </p>
-            </div>
-            <div className="flex items-center">
-              <svg
-                className="h-8 w-8 text-primary-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </header>
+    <>
+    <div className="bg-pattern">
+        <div className="floating-shape shape-1"></div>
+        <div className="floating-shape shape-2"></div>
+        <div className="floating-shape shape-3"></div>
+    </div>
 
-      {/* Header Banner Ad */}
-      {googleAds && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Ad slot="header-banner" format="horizontal" className="w-full" />
+    <div className="container">
+        <div className="header">
+            <h1>NYC Outings Finder</h1>
+            <p>Discover the perfect events and experiences in the city that never sleeps</p>
         </div>
-      )}
 
-      <main className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {!showResults ? (
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white shadow sm:rounded-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">
-                  Find Your Perfect Event
-                </h2>
-                <DateFinderForm onSubmit={handleFormSubmit} initialPreferences={preferences} />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="flex gap-8">
-            <div className="flex-1">
-              <ResultsView 
-                preferences={preferences!} 
-                onBack={handleBack}
-                filteredIdeas={filteredIdeas}
-              />
-            </div>
-            {/* Sidebar Ad (Desktop Only) */}
-            <div className="hidden lg:block w-72">
-              <Ad slot="sidebar" format="vertical" className="sticky top-8" />
-            </div>
-          </div>
-        )}
-      </main>
+        <div className="form-container">
+            <h2 className="form-title">Find Your Perfect Experience</h2>
+            <p className="form-subtitle">Customize your search to discover NYC adventures tailored just for you</p>
 
-      {/* Footer Banner Ad */}
-      {googleAds && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Ad slot="footer-banner" format="horizontal" className="w-full" />
+            <div className="form-section">
+                <div className="section-title">
+                    <svg className="section-icon" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    Neighborhoods
+                </div>
+                <div className="option-grid">
+                    <div className="option-card" data-option="manhattan">
+                        <div className="option-icon">🏙️</div>
+                        <div>Manhattan</div>
+                    </div>
+                    <div className="option-card" data-option="brooklyn">
+                        <div className="option-icon">🌉</div>
+                        <div>Brooklyn</div>
+                    </div>
+                    <div className="option-card" data-option="queens">
+                        <div className="option-icon">🏘️</div>
+                        <div>Queens</div>
+                    </div>
+                    <div className="option-card" data-option="bronx">
+                        <div className="option-icon">🌳</div>
+                        <div>Bronx</div>
+                    </div>
+                    <div className="option-card" data-option="staten-island">
+                        <div className="option-icon">🚢</div>
+                        <div>Staten Island</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="form-section">
+                <div className="section-title">
+                    <svg className="section-icon" viewBox="0 0 24 24">
+                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zM12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                    </svg>
+                    Time of Day
+                </div>
+                <div className="option-grid">
+                    <div className="option-card" data-option="morning">
+                        <div className="option-icon">🌅</div>
+                        <div>Morning</div>
+                    </div>
+                    <div className="option-card" data-option="afternoon">
+                        <div className="option-icon">☀️</div>
+                        <div>Afternoon</div>
+                    </div>
+                    <div className="option-card" data-option="evening">
+                        <div className="option-icon">🌆</div>
+                        <div>Evening</div>
+                    </div>
+                    <div className="option-card" data-option="night">
+                        <div className="option-icon">🌟</div>
+                        <div>Night</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="form-section">
+                <div className="section-title">
+                    <svg className="section-icon" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    Activities
+                </div>
+                <div className="option-grid">
+                    <div className="option-card" data-option="food">
+                        <div className="option-icon">🍽️</div>
+                        <div>Food & Drink</div>
+                    </div>
+                    <div className="option-card" data-option="culture">
+                        <div className="option-icon">🎨</div>
+                        <div>Arts & Culture</div>
+                    </div>
+                    <div className="option-card" data-option="outdoor">
+                        <div className="option-icon">🏃</div>
+                        <div>Outdoor & Sports</div>
+                    </div>
+                    <div className="option-card" data-option="entertainment">
+                        <div className="option-icon">🎭</div>
+                        <div>Entertainment</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="form-section">
+                <div className="section-title">
+                    <svg className="section-icon" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Accessibility
+                </div>
+                <div className="accessibility-section">
+                    <div className="accessibility-option" data-option="wheelchair">
+                        <div className="checkbox"></div>
+                        <div>♿ Wheelchair Accessible</div>
+                    </div>
+                    <div className="accessibility-option" data-option="hearing">
+                        <div className="checkbox"></div>
+                        <div>🎧 Hearing Assistance Available</div>
+                    </div>
+                    <div className="accessibility-option" data-option="visual">
+                        <div className="checkbox"></div>
+                        <div>👁️ Visual Assistance Available</div>
+                    </div>
+                </div>
+            </div>
+
+            <button className="search-button pulse" onclick="searchEvents()">
+                <span>✨ Find Amazing Experiences</span>
+            </button>
         </div>
-      )}
+    </div>
 
       <footer className="bg-white border-t border-gray-200 mt-12">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -150,7 +210,7 @@ function App() {
           </p>
         </div>
       </footer>
-    </div>
+    </>
   )
 }
 

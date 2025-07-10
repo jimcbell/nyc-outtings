@@ -26,7 +26,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
   })
 
   // State for form errors
-  const [errors, setErrors] = useState<FormErrors>({})
+  //const [errors, setErrors] = useState<FormErrors>({})
 
   // Update form data when initialPreferences changes
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
       newErrors.activities = 'Please select at least one activity type'
     }
 
-    setErrors(newErrors)
+    //setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 

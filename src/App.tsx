@@ -17,7 +17,7 @@ function App() {
   const [preferences, setPreferences] = useState<DatePreferences | null>(null)
   const [filteredIdeas, setFilteredIdeas] = useState(dateIdeas)
 
-  const googleAds: boolean = (import.meta as any).env.VITE_GOOGLE_ADS_ENABLED === 'true';
+  //const googleAds: boolean = (import.meta as any).env.VITE_GOOGLE_ADS_ENABLED === 'true';
 
   const handleFormSubmit = (data: DatePreferences) => {
     setPreferences(data)

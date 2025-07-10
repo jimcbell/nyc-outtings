@@ -1,31 +1,41 @@
-import { TicketIcon } from '@heroicons/react/24/outline'
+import React from 'react'
 
 interface TicketFilterProps {
   noTicketOnly: boolean
-  onChange: (value: boolean) => void
+  onSelectionChange: (value: boolean) => void
+  className?: string
 }
 
-export default function TicketFilter({ noTicketOnly, onChange }: TicketFilterProps) {
+export default function TicketFilter({ 
+  noTicketOnly, 
+  onSelectionChange,
+  className = ""
+}: TicketFilterProps) {
+  
+  const handleToggle = () => {
+    onSelectionChange(!noTicketOnly)
+  }
+
   return (
-    <div>
-      <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-        <TicketIcon className="w-5 h-5 mr-2 text-teal-500" />
-        Ticket Filter
-      </h3>
-      <label className={`option-button ${
-        noTicketOnly
-          ? 'option-button--selected'
-          : 'option-button--unselected'
-      }`}>
-        <input
-          type="checkbox"
-          checked={noTicketOnly}
-          onChange={(e) => onChange(e.target.checked)}
-          className="sr-only"
-        />
-        <TicketIcon className="w-5 h-5 mr-2 flex-shrink-0" />
-        No Ticket Required
-      </label>
+    <div className={`form-section ${className}`}>
+      <div className="section-title">
+        <svg className="section-icon" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        Ticket Requirements
+      </div>
+      <div className="accessibility-section">
+        <div 
+          className={`accessibility-option ${noTicketOnly ? 'selected' : ''}`}
+          onClick={handleToggle}
+          data-option="no-ticket"
+        >
+          <div className={`checkbox ${noTicketOnly ? 'checked' : ''}`}>
+            {noTicketOnly && <span>✓</span>}
+          </div>
+          <div>🎫 No Ticket Required</div>
+        </div>
+      </div>
     </div>
   )
 } 

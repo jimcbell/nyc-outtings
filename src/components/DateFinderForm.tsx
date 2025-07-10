@@ -21,7 +21,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     neighborhoods: initialPreferences?.neighborhoods || [],
     timeOfDay: initialPreferences?.timeOfDay || [],
     activities: initialPreferences?.activities || [],
-    accessibility: initialPreferences?.accessibility || false,
+    accessibility: initialPreferences?.accessibility || [],
     dietaryRestrictions: initialPreferences?.dietaryRestrictions || []
   })
 
@@ -51,6 +51,12 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     setFormData(prev => ({
       ...prev,
       activities
+    }))
+  }
+  const handleAccessibilityChange = (accessibility: string[]) => {
+    setFormData(prev => ({
+      ...prev,
+      accessibility
     }))
   }
 
@@ -134,7 +140,11 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
       />
 
       
-      <AccessibilityInput/>
+             <AccessibilityInput 
+         selectedValues={formData.accessibility}
+         onSelectionChange={handleAccessibilityChange}
+       />
+
       <button className="search-button pulse" onClick={handleSubmit}>
         <span>✨ Find Amazing Experiences</span>
       </button>

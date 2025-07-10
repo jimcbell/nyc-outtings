@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import DateFinderForm from './components/DateFinderForm'
+import ResultsView from './components/ResultsView'
 import { dateIdeas } from './data/dateIdeas'
 import './styles/custom.css'
 
@@ -7,7 +8,7 @@ export interface DatePreferences {
   neighborhoods: string[]
   timeOfDay: string[]
   activities: string[]
-  accessibility: boolean
+  accessibility: string[]
   dietaryRestrictions: string[]
 }
 
@@ -81,8 +82,12 @@ function App() {
             <h1>NYC Outings Finder</h1>
             <p>Discover the perfect events and experiences in the city that never sleeps</p>
         </div>
-        <DateFinderForm onSubmit={handleFormSubmit} initialPreferences={preferences} />
-        
+        <DateFinderForm onSubmit={(handleFormSubmit)} initialPreferences={preferences} />
+        <ResultsView 
+                preferences={preferences!} 
+                onBack={handleBack}
+                filteredIdeas={filteredIdeas}
+              />
     </div>
 
       <footer className="bg-white border-t border-gray-200 mt-12">

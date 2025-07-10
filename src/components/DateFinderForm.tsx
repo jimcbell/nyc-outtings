@@ -62,7 +62,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
 
   const validateForm = () => {
     const newErrors: FormErrors = {}
-    
+
     if (formData.neighborhoods.length === 0) {
       newErrors.neighborhoods = 'Please select at least one neighborhood'
     }
@@ -70,7 +70,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     if (formData.timeOfDay.length === 0) {
       newErrors.timeOfDay = 'Please select at least one time of day'
     }
-    
+
     if (formData.activities.length === 0) {
       newErrors.activities = 'Please select at least one activity type'
     }
@@ -97,17 +97,15 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
   ]
 
   const timeOfDayOptions = [
-    { value: 'morning', label: 'Morning', icon: '🌅' },
-    { value: 'afternoon', label: 'Afternoon', icon: '☀️' },
-    { value: 'evening', label: 'Evening', icon: '🌆' },
-    { value: 'night', label: 'Night', icon: '🌟' }
+    { value: 'Daytime', label: 'Day', icon: '☀️' },
+    { value: 'Nighttime', label: 'Night', icon: '🌆' }
   ]
 
   const activityOptions = [
-    { value: 'food', label: 'Food & Drink', icon: '🍽️' },
-    { value: 'culture', label: 'Arts & Culture', icon: '🎨' },
-    { value: 'outdoor', label: 'Outdoor & Sports', icon: '🏃' },
-    { value: 'entertainment', label: 'Entertainment', icon: '🎭' }
+    { value: 'Dining', label: 'Food & Drink', icon: '🍽️' },
+    { value: 'Culture', label: 'Arts & Culture', icon: '🎨' },
+    { value: 'Active', label: 'Outdoor & Sports', icon: '🏃' },
+    { value: 'Entertainment', label: 'Entertainment', icon: '🎭' }
   ]
 
   return (
@@ -126,7 +124,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
       <OptionGrid
         title="Time of Day"
         options={timeOfDayOptions}
-        isMultiSelect={false}
+        isMultiSelect={true}
         selectedValues={formData.timeOfDay}
         onSelectionChange={handleTimeOfDayChange}
       />
@@ -139,11 +137,11 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
         onSelectionChange={handleActivityChange}
       />
 
-      
-             <AccessibilityInput 
-         selectedValues={formData.accessibility}
-         onSelectionChange={handleAccessibilityChange}
-       />
+
+      <AccessibilityInput
+        selectedValues={formData.accessibility}
+        onSelectionChange={handleAccessibilityChange}
+      />
 
       <button className="search-button pulse" onClick={handleSubmit}>
         <span>✨ Find Amazing Experiences</span>

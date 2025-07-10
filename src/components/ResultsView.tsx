@@ -19,7 +19,7 @@ const getTicketText = (requiresTicket: boolean) => {
   return requiresTicket ? 'Ticket Required' : 'No Ticket Needed'
 }
 interface ResultsViewProps {
-  onBack? : () => void,
+  onBack?: () => void,
   filteredIdeas: Array<DateIdea>
 }
 
@@ -36,7 +36,7 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
     <div key={idea.id} className="date-idea-card">
       {/* Shine effect */}
       <div className="card-shine" />
-      
+
       {/* Ticket Indicator */}
       <div className="ticket-indicator">
         <span className={`ticket-badge ${idea.requiresTicket ? 'required' : 'not-required'}`}>
@@ -51,7 +51,7 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
         <p className="card-description">
           {idea.description}
         </p>
-        
+
         {/* Price Range */}
         <div className="price-range">
           <span className="price-icon">🏷️</span>
@@ -107,7 +107,7 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
         {/* Website Button */}
         {idea.websiteUrl && (
           <div>
-            <a 
+            <a
               href={idea.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -149,7 +149,7 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
 
         <div className="results-header">
           <h2 className="results-title">
-            {filteredResults.length} Date {filteredResults.length === 1 ? 'Idea' : 'Ideas'} Found
+            {filteredResults.length} {filteredResults.length === 1 ? 'Idea' : 'Ideas'} Found
           </h2>
           <button
             onClick={onBack || (() => alert('Back to form'))}

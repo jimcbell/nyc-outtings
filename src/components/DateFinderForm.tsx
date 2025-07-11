@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { DatePreferences } from '../App'
 import OptionGrid from './OptionGrid'
-import '../styles/custom.css'
 import AccessibilityInput from './AccessibilityInput'
 
 interface FormErrors {
